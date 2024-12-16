@@ -1,0 +1,9 @@
+description: Deploy the Sorry Cypress Executor
+
+steps:
+  - run:
+      name: Deploy Sorry Cypress Executor
+      command: |
+          chmod +x helm/executejob.sh
+          cd helm
+          ./executejob.sh "$CIRCLE_PROJECT_REPONAME-$CYPRESS_environment-$CIRCLE_BUILD_NUM" $Parallelism $CYPRESS_username $CYPRESS_password $CYPRESS_environment $CYPRESS_brokerUsername $CYPRESS_brokerPassword $CYPRESS_brokerPassword $CYPRESS_bankerUsername $CYPRESS_bankerPassword $CYPRESS_reaUsername $CYPRESS_reaPassword $CYPRESS_referUsername $CYPRESS_referPassword $CYPRESS_client_id $CYPRESS_client_secret $CYPRESS_audience $CYPRESS_commonId $CYPRESS_purchaseApp_username $CYPRESS_purchaseApp_password $CYPRESS_refiApp_username $CYPRESS_refiApp_password $CIRCLE_BUILD_NUM $CIRCLE_PROJECT_REPONAME $CIRCLE_JOB $CYPRESS_RUN_SPEC

@@ -1,0 +1,11 @@
+description: Attach workspace
+
+parameters:
+  workspace_root:
+    description: workspace root path
+    type: string
+    default: "."
+
+steps:
+  - attach_workspace:
+      at: <parameters.workspace_root>

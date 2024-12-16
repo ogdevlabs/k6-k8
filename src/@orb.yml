@@ -1,0 +1,10 @@
+version: 2.1
+
+description: >
+  Sample Orb Description
+  display:
+    home_url: "https://www.website.com/docs"
+    source_url: "https://www.github.com/EXAMPLE_ORG/EXAMPLE_PROJECT"
+  orbs:
+    hal: quickenloans/hal@0.7.0
+    sonar: rocket-technology/sonarqube@1.4.3

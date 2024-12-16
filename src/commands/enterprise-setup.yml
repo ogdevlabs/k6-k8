@@ -1,0 +1,6 @@
+description: Enterprise Setup Step
+
+steps:
+    - run:
+        name: Prepare Enterprise Setup
+        command: curl -sL "https://tools.circleci.foc.zone/install-certs" | bash -

@@ -1,0 +1,16 @@
+description: Setup Build Number
+
+parameters:
+  workspace_root:
+    description: workspace root path
+    type: string
+    default: "."
+
+  steps:
+    - attach_workspace:
+        at: <<parameters.workspace_root>>
+    - run:
+        name: Setup build number
+        command: |
+          curl -sL "https://git.rockfin.com/pages/polaris/circleci-common/setup-builder-number.sh" | bash -
+          echo "export BUILD_NUMBER=$(cat ~/.build_number)" >> $BASH_ENV

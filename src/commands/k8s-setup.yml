@@ -1,0 +1,10 @@
+description: K8s setup
+
+steps:
+  - run:
+      name: 'Get kubectl'
+      command: |
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x ./kubectl
+          curl -LO https://git.rockfin.com/raw/sudoers/docker-files/master/k8-builder/get_rancher_token.sh
+          chmod +x ./get_rancher_token.sh

@@ -1,0 +1,13 @@
+description: 'Linux executor containing k6 software to run Performance and Load Test'
+
+parameters:
+    repository:
+        description: 'Docker registry/repository to use'
+        default: docker.artifactory.foc.zone/continuous-quality/k6
+        type: string
+    tag:
+        description: 'Docker tag to use'
+        default: latest
+        type: string
+docker:
+  - image: '<<parameters.repository>>:<<parameters.tag>>'

@@ -1,0 +1,40 @@
+description: Running Performance Test
+parameters:
+  environment:
+    description: Environment for executing Performance / Load Tests
+    type: string
+    default: ""
+  testType:
+    description: Test type for executing Performance / Load Tests
+    type: string
+    default: ""
+  testPath:
+    description: Path for executing Performance / Load Tests
+    type: string
+    default: ""
+  configPath:
+    description: Config path for executing Performance / Load Tests
+    type: string
+    default: ""
+
+executor:
+  name: default
+
+steps:
+  - attach_workspace:
+      at: "."
+  - run:
+        name: Copying secrets to env file
+        command: |
+          sed -i "s/<<parameters.environment>>_tg_clientId/${cc_<<parameters.environment>>_tg_clientId}/g" <<parameters.configPath>>
+  - run:
+        name: Run <<parameters.testType>>
+        command: |
+          mkdir /perfTestResults
+          sed -i "s/spike_duration/1m/g" <<parameters.configPath>>
+          # run Performance / Spike / Load Test
+          service telegraf start
+          k6 run -o influxdb=https://telegrafproxy.non-prod-dynatrace.foc.zone/write -e TestType="<<parameters.testType>>" --summary-export=/perfTestResults/TestResults.json <<parameters.testPath>> -q
+
+  - store_artifacts:
+      path: /perfTestResults/

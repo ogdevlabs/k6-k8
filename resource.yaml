@@ -1,0 +1,62 @@
+apiVersion: k6.io/v1alpha1
+kind: K6
+metadata:
+    name: metadata.Name
+    namespace: metadataatNameSpace
+spec:
+  containers:
+  parallelism: parallelismCount
+  script:
+    configMap:
+      name: configMapName
+      file: configMapFile
+  scuttle:
+    disableLogging: true
+    enabled: 'scuttleEnabled'
+    istioQuitApi: 'http://127.0.0.1:15020'
+  separate: false
+  arguments: --out output-dynatrace
+  runner:
+    image: 049306942178.dkr.ecr.us-east-2.amazonaws.com/np-211124-k6-eks:latest
+    metadata:
+      labels:
+        cool-label: foo
+      annotations:
+        cool-annotations: bar
+        traffic.sidecar.istio.io/excludeOutboundPorts: '443'
+      securityContext:
+        runAsUser: 2000
+        runAsGroup: 2000
+        runAsNonRoot: true
+      resources:
+        limits:
+          cpu: 400m
+          memory: 2000Mi
+        request:
+          cpu: 200m
+          memory: 1000Mi
+      env:
+        - name: K6_DYNATRACE_URL
+          value: https://akp68187.live.dyntrace.com
+        - name: ClientID
+          value: Client_ID
+        - name: ClientSecret
+          value: Client_Secret
+    starter:
+      image: ghcr.io/grafana/operator:latest-starter
+      metadata:
+        labels:
+          cool-label: foo
+        annotations:
+          cool-annotations: bar
+      securityContext:
+        runAsUser: 2000
+        runAsGroup: 2000
+        runAsNonRoot: true
+      resources:
+        limits:
+          cpu: 200m
+          memory: 1000Mi
+        request:
+          cpu: 100m
+          memory: 500Mi

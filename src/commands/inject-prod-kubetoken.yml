@@ -1,0 +1,6 @@
+description: Inject the prod Kube Token
+
+steps:
+  - run:
+      name: Generate Kube Config File
+      command: ./get_rancher_token.sh -env k8 -t $RANCHER_PROD_TOKEN
